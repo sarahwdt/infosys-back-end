@@ -1,0 +1,90 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Занятия</title>
+</head>
+<body>
+<div th:fragment="list">
+    <div th:replace="fragments/editor.html::editor(path='/session')"></div>
+    <table class="w3-table-all" id="table">
+        <thead>
+        <tr>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('instructor.secondName')} != null
+                and ${page.getSort().getOrderFor('instructor.secondName').getDirection().isDescending()}?
+                'instructor.secondName,asc':'instructor.secondName,desc',
+                sort=${page.getSort().getOrderFor('instructor.firstName')} != null
+                and ${page.getSort().getOrderFor('instructor.firstName').getDirection().isDescending()}?
+                'instructor.firstName,asc':'instructor.firstName,desc')}">
+                Тренер</a>
+            </th>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('date')} != null
+                and ${page.getSort().getOrderFor('date').getDirection().isDescending()}?
+                'date,asc':'date,desc')}">
+                Дата</a>
+            </th>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('comment')} != null
+                and ${page.getSort().getOrderFor('comment').getDirection().isDescending()}?
+                'comment,asc':'comment,desc')}">
+                Комментарий</a>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="w3-hover-gray" th:each="item:${page}"
+            th:onclick="'selectItem(this, \'w3-teal\', \'' + ${item.getId()} + '\');'">
+            <td class="w3-bordered" th:text="${item.getInstructorName()}"></td>
+            <td class="w3-bordered" th:text="${item.getDate()}"></td>
+            <td class="w3-bordered" th:text="${item.getComment()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:insert="fragments/paginator::paginator"></div>
+</div>
+<div class="w3-display-topmiddle w3-card-4 w3-animate-top"
+     style="max-width: 600px; min-width: 30%" th:fragment="card">
+    <header class="w3-container w3-teal">
+        <h2>Занятие</h2>
+    </header>
+    <form class="w3-container" method="POST" th:object="${object}" th:action="@{/session}">
+        <input type="hidden" th:field="*{id}"/>
+        <label><b>Тренер</b>
+            <select th:field="*{instructor}" class="w3-select w3-input w3-border w3-margin-bottom">
+                <option th:each="inst : ${instructorsList}"
+                        th:selected="${inst.equals(instructor)}"
+                        th:value="${inst.getId()}" th:text="${inst.getFullName()}">
+                </option>
+            </select>
+        </label>
+        <label><b>Посетители</b>
+            <select th:field="*{clients}" multiple="multiple"
+                    class="w3-select w3-input w3-border w3-margin-bottom">
+                <option th:each="client : ${clientsList}"
+                        th:selected="${clients != null && clients.contain(client)}"
+                        th:value="${client.getId()}" th:text="${client.getFullName()}">
+                </option>
+            </select>
+        </label>
+        <label><b>Дата</b>
+            <input type="datetime-local" th:field="*{date}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{date}"/>
+        </label>
+        <label><b>Комментарий</b>
+            <input type="text" th:field = "*{comment}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{comment}"/>
+        </label>
+        <button class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Создать</button>
+    </form>
+
+</div>
+</body>
+</html>

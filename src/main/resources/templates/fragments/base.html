@@ -1,0 +1,14 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Фитнес</title>
+</head>
+<body>
+<div th:fragment="base">
+    <div th:insert="~{fragments/navbar :: navbar}"></div>
+    <div th:insert="~{fragments/popups :: message}"></div>
+    <div th:insert="~{fragments/popups :: error}"></div>
+</div>
+</body>
+</html>

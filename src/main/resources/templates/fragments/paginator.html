@@ -1,0 +1,26 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+</head>
+<body>
+
+<div class="w3-center w3-padding-32 " th:if="${page} != null and ${page.getTotalPages()} > 0" th:fragment="paginator">
+    <div class="w3-bar">
+
+        <a class="w3-button w3-hover-teal" th:if="${page.getNumber() > 1}" th:href="@{''(page=1,sort=${param.sort})}">1</a>
+        <span th:if="${page.getNumber() > 2}">...</span>
+        <a class="w3-button w3-hover-teal" th:text="${page.getNumber()}" th:if="${page.getNumber() > 0}"
+           th:href="@{''(page=${page.getNumber()}-1,sort=${param.sort})}">prev</a>
+        <a class="w3-button w3-teal w3-hover-teal w3-border" th:text="${page.getNumber()}+1">current</a>
+        <a class="w3-button w3-hover-teal" th:text="${page.getNumber()+2}" th:if="${page.getNumber() < page.getTotalPages()-1}"
+           th:href="@{''(page=${page.getNumber()} + 1,sort=${param.sort})}">next</a>
+        <span th:if="${page.getNumber() < page.getTotalPages()-3}">...</span>
+        <a class="w3-button w3-hover-teal" th:text="${page.getTotalPages()}-1"
+           th:if="${page.getNumber() < page.getTotalPages()-2}" th:href="@{''(page=${page.getTotalPages()}-1,sort=${param.sort})}">last</a>
+
+    </div>
+</div>
+</body>
+</html>

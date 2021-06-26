@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="navbar">
+    <div class="w3-bar w3-teal w3-container w3-left-align w3-large">
+        <a href="/" class="w3-bar-item w3-button">Фитнес</a>
+        <a href="/session" class="w3-bar-item w3-button w3-hide-small w3-hover-white"
+           sec:authorize="hasAuthority('read_sessions')">Занятия</a>
+        <a href="/instructor" class="w3-bar-item w3-button w3-hide-small w3-hover-white "
+           sec:authorize="hasAuthority('read_sessions')">Тренеры</a>
+        <a href="/client" class="w3-bar-item w3-button w3-hide-small w3-hover-white"
+           sec:authorize="hasAuthority('read_sessions')">Клиенты</a>
+        <a href="/admin" class="w3-bar-item w3-button w3-hide-small w3-hover-white"
+           sec:authorize="hasAuthority('read_sessions')">Администрирование</a>
+        <a href="/about" class="w3-bar-item w3-button w3-hide-small w3-hover-white">О нас</a>
+
+        <a href="/login" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right"
+           sec:authorize="isAnonymous()">Войти</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right"
+           sec:authorize="isAuthenticated()">Выйти</a>
+        <a href="/user" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right"
+           th:text ="${#authentication.getPrincipal().getUsername()}" sec:authorize="isAuthenticated()">Войти</a>
+    </div>
+</div>
+
+</body>
+</html>

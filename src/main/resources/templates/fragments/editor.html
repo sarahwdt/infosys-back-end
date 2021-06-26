@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="editor (path)">
+    <script src="/js/table_utils.js"></script>
+    <div class="w3-bar w3-teal w3-container w3-left-align w3-large">
+        <a th:data-1 = "${path}" onclick="create(this.getAttribute('data-1'))" class="w3-bar-item w3-button w3-hide-small w3-hover-white ">Добавить</a>
+        <a th:data-1 = "${path}" onclick="editSelected(this.getAttribute('data-1'))" class="w3-bar-item w3-button w3-hide-small w3-hover-white"
+           id="edit-button">Редактировать</a>
+        <a th:data-1 = "${path}" onclick="deleteSelected(this.getAttribute('data-1'))"  class="w3-bar-item w3-button w3-hide-small w3-hover-white "
+           id="delete-button">Удалить</a>
+    </div>
+</div>
+
+</body>
+</html>

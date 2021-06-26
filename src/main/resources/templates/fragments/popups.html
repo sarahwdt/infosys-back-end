@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="message" th:if="${msg}!=null" id="message"
+     class="w3-card-4 w3-animate-fading w3-display-bottomright"
+     style="display: block; min-width: 15%; max-width: 200px">
+    <header class="w3-container w3-teal">
+        <span onclick="document.getElementById('message').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+        <h6>Сообщение</h6>
+    </header>
+    <p class="w3-container" th:text="${msg}"></p>
+</div>
+<div th:fragment="error" th:if="${error}!=null" id="error"
+     class="w3-card-4 w3-animate-fading w3-display-bottomright"
+     style="display: block; min-width: 15%; max-width: 200px">
+    <header class="w3-container w3-red">
+        <span onclick="document.getElementById('error').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+        <h6>Ошибка</h6>
+    </header>
+    <p class="w3-container" th:text="${error}"></p>
+</div>
+</body>
+</html>

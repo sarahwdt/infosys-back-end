@@ -1,0 +1,101 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Занятия</title>
+</head>
+<body>
+<div th:fragment="list">
+    <div th:replace="fragments/editor.html::editor(path='/instructor')"></div>
+    <table class="w3-table-all" id="table">
+        <thead>
+        <tr>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('firstName')} != null
+                and ${page.getSort().getOrderFor('firstName').getDirection().isDescending()}?
+                'firstName,asc':'firstName,desc')}">
+                Имя</a>
+            </th>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('middleName')} != null
+                and ${page.getSort().getOrderFor('middleName').getDirection().isDescending()}?
+                'middleName,asc':'middleName,desc')}">
+                Отчество</a>
+            </th>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('secondName')} != null
+                and ${page.getSort().getOrderFor('secondName').getDirection().isDescending()}?
+                'secondName,asc':'secondName,desc')}">
+                Фамилия</a>
+            </th>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('phone')} != null
+                and ${page.getSort().getOrderFor('phone').getDirection().isDescending()}?
+                'phone,asc':'phone,desc')}">
+                Телефон</a>
+            </th>
+            <th style="padding: 0"><a class="w3-button w3-block w3-bordered"
+                                      th:href="@{''(page=${page.getNumber()},size=${page.getSize()},
+                sort=${page.getSort().getOrderFor('email')} != null
+                and ${page.getSort().getOrderFor('email').getDirection().isDescending()}?
+                'email,asc':'email,desc')}">
+                E-mail</a>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="w3-hover-gray" th:each="item:${page}"
+            th:onclick="'selectItem(this, \'w3-teal\', \'' + ${item.getId()} + '\');'">
+            <td class="w3-bordered" th:text="${item.getFirstName()}"></td>
+            <td class="w3-bordered" th:text="${item.getMiddleName()}"></td>
+            <td class="w3-bordered" th:text="${item.getSecondName()}"></td>
+            <td class="w3-bordered" th:text="${item.getPhone()}"></td>
+            <td class="w3-bordered" th:text="${item.getEmail()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:insert="fragments/paginator::paginator"></div>
+</div>
+<div class="w3-display-topmiddle w3-card-4 w3-animate-top"
+     style="max-width: 600px; min-width: 30%" th:fragment="card">
+    <header class="w3-container w3-teal">
+        <h2>Инструктор</h2>
+    </header>
+    <form class="w3-container" method="POST" th:object="${object}"  th:action="@{/instructor}">
+        <input type="hidden" th:field="*{id}"/>
+        <label><b>Имя</b>
+            <input type="text" th:field = "*{firstName}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{firstName}"/>
+        </label>
+        <label><b>Отчество</b>
+            <input type="text" th:field = "*{middleName}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{middleName}"/>
+        </label>
+        <label><b>Фамилия</b>
+            <input type="text" th:field = "*{secondName}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{secondName}"/>
+        </label>
+        <label><b>Телефон</b>
+            <input type="text" th:field = "*{phone}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{phone}"/>
+        </label>
+        <label><b>E-mail</b>
+            <input type="text" th:field = "*{email}"
+                   required class="w3-input w3-border w3-margin-bottom"
+                   th:value="*{email}"/>
+        </label>
+        <button class="w3-button w3-block w3-teal w3-section w3-padding" type="submit">Создать</button>
+    </form>
+
+</div>
+</body>
+</html>
