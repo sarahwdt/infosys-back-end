@@ -1,0 +1,6 @@
+export * from "@/_page-configs/privileges"
+export * from "@/_page-configs/roles"
+export * from "@/_page-configs/users"
+export * from "@/_page-configs/instructors"
+export * from "@/_page-configs/clients"
+export * from "@/_page-configs/sessions"
